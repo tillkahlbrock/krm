@@ -1,0 +1,11 @@
+.factor, .operator {
+    font-size: 16em;
+}
+
+button {
+    margin: 10px;
+}
+
+.stats {
+    padding-top: 80px;
+}
