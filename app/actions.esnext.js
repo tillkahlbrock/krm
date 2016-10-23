@@ -6,7 +6,7 @@ export const RESTART_TASKS_REQUESTED = 'restart tasks requested';
 
 const DELAY_BEFORE_NEXT_TASK = 2000;
 
-const randomNumber = () => Math.ceil(Math.random() * 10);
+const randomNumber = (min = 1, max = 10) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 const numbers = () => {
     let factor1, factor2;
