@@ -14,8 +14,8 @@ export const pointsNeededForLevel = {
 };
 
 const initialState = immutable({
-    factor1: 1,
-    factor2: 1,
+    term1: 1,
+    term2: 1,
     result1: 1,
     result2: 1,
     result3: 1,
@@ -26,30 +26,28 @@ const initialState = immutable({
     level: 1,
     points: 0,
     life: 3,
+    operator: null,
     buttonsDisabled: false,
 });
 
 export default (state = initialState, action) => {
     const { type, payload } = action;
+
     switch (type) {
-        case actions.GENERATE_NUMBERS_SUCCEEDED:
+        case actions.GENERATE_INITIAL_TASKS_SUCCEEDED:
             const {
-                factor1,
-                factor2,
+                term1,
+                term2,
                 result1,
                 result2,
                 result3,
-            } = payload;
+            } = payload.task;
 
-            return state.merge({ factor1, factor2,  result1, result2, result3 });
+            return state.merge({ term1, term2,  result1, result2, result3, operator: payload.operator });
 
 
         case actions.SOLVE_REQUESTED:
-            const { solution, id } = payload;
-
-            const result1State = id != 1 ? 'info' : (solution != state.factor1 * state.factor2 ? 'danger' : 'success');
-            const result2State = id != 2 ? 'info' : (solution != state.factor1 * state.factor2 ? 'danger' : 'success');
-            const result3State = id != 3 ? 'info' : (solution != state.factor1 * state.factor2 ? 'danger' : 'success');
+            const { result1State, result2State, result3State } = payload;
 
             const success = (result1State == 'success' || result2State == 'success' || result3State == 'success');
             const points = success ? state.points + 1 : state.points;
@@ -69,15 +67,18 @@ export default (state = initialState, action) => {
             });
 
         case actions.TASK_SOLVED_TIMEOUT_FINISHED:
+            const task = payload.task;
+
             return state.merge({
-                factor1: payload.factor1,
-                factor2: payload.factor2,
-                result1: payload.result1,
-                result2: payload.result2,
-                result3: payload.result3,
+                term1: task.term1,
+                term2: task.term2,
+                result1: task.result1,
+                result2: task.result2,
+                result3: task.result3,
                 result1State: 'info',
                 result2State: 'info',
                 result3State: 'info',
+                operator: payload.operator,
                 buttonsDisabled: false,
             });
 

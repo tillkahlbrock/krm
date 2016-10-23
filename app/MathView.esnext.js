@@ -19,7 +19,7 @@ export default class SilomView {
         }
 
         this.store = Redux.applyMiddleware(...middleware)(Redux.createStore)(reducer);
-        this.store.dispatch(actions.generateNumbersSucceeded());
+        this.store.dispatch(actions.generateInitialTasksRequested());
     }
 
     render(element) {

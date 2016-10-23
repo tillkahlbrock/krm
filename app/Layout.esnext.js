@@ -13,8 +13,8 @@ import {
 
 const Layout  = props => {
     const {
-        factor1,
-        factor2,
+        term1,
+        term2,
         result1,
         result2,
         result3,
@@ -25,6 +25,7 @@ const Layout  = props => {
         level,
         points,
         life,
+        operator,
         buttonsDisabled,
 
         onStartTasksClick,
@@ -45,11 +46,11 @@ const Layout  = props => {
                 </div>
             </div> }
             { step === STEP_TASKS && <div>
-                <div className="col-md-6">
+                <div className="col-md-8">
                     <div className="row">
-                        <span className="factor">{factor1}</span>
-                        <span className="operator">&middot;</span>
-                        <span className="factor">{factor2}</span>
+                        <span className="term">{term1}</span>
+                        <span className="operator">{operator}</span>
+                        <span className="term">{term2}</span>
                     </div>
                     <div className="row">
                         <button onClick={() => onSolveClick(result1, 1)} type="button" className={"btn btn-lg btn-" + result1State} disabled={buttonsDisabled}>{result1}</button>
@@ -57,7 +58,7 @@ const Layout  = props => {
                         <button onClick={() => onSolveClick(result3, 3)} type="button" className={"btn btn-lg btn-" + result3State} disabled={buttonsDisabled}>{result3}</button>
                     </div>
                 </div>
-                <div className="col-md-6 stats">
+                <div className="col-md-4 stats">
                     <div className="row">
                         <p><strong>Leben: {_.times(life, (key) => <img key={key} src="heart.png" width="16" height="16" />)}</strong></p>
                         <p><strong>Level: {level}</strong></p>
@@ -93,8 +94,8 @@ const Layout  = props => {
     </div>};
 
 Layout.propTypes = {
-    factor1: PropTypes.number.isRequired,
-    factor2: PropTypes.number.isRequired,
+    term1: PropTypes.number.isRequired,
+    term2: PropTypes.number.isRequired,
     result1: PropTypes.number.isRequired,
     result2: PropTypes.number.isRequired,
     result3: PropTypes.number.isRequired,
@@ -105,6 +106,7 @@ Layout.propTypes = {
     level: PropTypes.number.isRequired,
     points: PropTypes.number.isRequired,
     life: PropTypes.number.isRequired,
+    operator: PropTypes.string.isRequired,
     buttonsDisabled: PropTypes.bool.isRequired,
 
     onStartTasksClick: PropTypes.func.isRequired,
@@ -115,8 +117,8 @@ Layout.propTypes = {
 export default actions => {
     const mapStateToProps = state => {
         const {
-            factor1,
-            factor2,
+            term1,
+            term2,
             result1,
             result2,
             result3,
@@ -127,12 +129,13 @@ export default actions => {
             level,
             points,
             life,
+            operator,
             buttonsDisabled,
             } = state;
 
         return {
-            factor1,
-            factor2,
+            term1,
+            term2,
             result1,
             result2,
             result3,
@@ -143,6 +146,7 @@ export default actions => {
             level,
             points,
             life,
+            operator,
             buttonsDisabled,
         };
     };
